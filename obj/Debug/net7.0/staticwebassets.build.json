@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5qkiWyr5qFPHV374rSMGTyll+PkGZvl2JddwXrycwCg=",
+  "Hash": "hHVtSHqf2TKYk97lghN7W6/q1kQdSXdLE47GS3DzNuw=",
   "Source": "tasks",
   "BasePath": "_content/tasks",
   "Mode": "Default",
@@ -32,23 +32,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
-    },
-    {
-      "Identity": "C:\\Users\\user\\Documents\\studies\\year2\\core\\tasks\\wwwroot\\data\\tasks.json",
-      "SourceId": "tasks",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\user\\Documents\\studies\\year2\\core\\tasks\\wwwroot\\",
-      "BasePath": "_content/tasks",
-      "RelativePath": "data/tasks.json",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\data\\tasks.json"
     },
     {
       "Identity": "C:\\Users\\user\\Documents\\studies\\year2\\core\\tasks\\wwwroot\\index.html",

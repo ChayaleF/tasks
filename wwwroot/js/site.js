@@ -1,4 +1,5 @@
-const uri = "../data/tasks.json";
+const uri = "https://localhost:7188/Tasks";
+//const uri = '..Tasks' אפשר גם:
 let tasks = [];
 
 function getItems() {
@@ -12,8 +13,8 @@ function addItem() {
     const addNameTextbox = document.getElementById('add-name');
 
     const item = {
-        IsDone: false,
-        Name: addNameTextbox.value.trim()
+        isDone: false,
+        name: addNameTextbox.value.trim()
     };
 
     fetch(uri, {
@@ -41,20 +42,20 @@ function deleteItem(id) {
 }
 
 function displayEditForm(id) {
-    const item = tasks.find(item => item.Id === id);
+    const item = tasks.find(item => item.id === id);
 
-    document.getElementById('edit-name').value = item.Name;
-    document.getElementById('edit-id').value = item.Id;
-    document.getElementById('edit-isDone').checked = item.IsDone;
+    document.getElementById('edit-name').value = item.name;
+    document.getElementById('edit-id').value = item.id;
+    document.getElementById('edit-isDone').checked = item.isDone;
     document.getElementById('editForm').style.display = 'block';
 }
 
 function updateItem() {
     const itemId = document.getElementById('edit-id').value;
     const item = {
-        Id: parseInt(itemId, 10),
-        IsDone: document.getElementById('edit-isDone').checked,
-        Name: document.getElementById('edit-name').value.trim()
+        id: parseInt(itemId, 10),
+        isDone: document.getElementById('edit-isDone').checked,
+        name: document.getElementById('edit-name').value.trim()
     };
 
     fetch(`${uri}/${itemId}`, {
@@ -94,16 +95,16 @@ function _displayItems(data) {
     data.forEach(item => {
         let isDoneTaskCheckbox = document.createElement('input');
         isDoneTaskCheckbox.type = 'checkbox';
-        isDoneTaskCheckbox.disabled = false;
-        isDoneTaskCheckbox.checked = item.IsDone;
+        isDoneTaskCheckbox.disabled = true;
+        isDoneTaskCheckbox.checked = item.isDone;
 
         let editButton = button.cloneNode(false);
         editButton.innerText = 'Edit';
-        editButton.setAttribute('onclick', `displayEditForm(${item.Id})`);
+        editButton.setAttribute('onclick', `displayEditForm(${item.id})`);
 
         let deleteButton = button.cloneNode(false);
         deleteButton.innerText = 'Delete';
-        deleteButton.setAttribute('onclick', `deleteItem(${item.Id})`);
+        deleteButton.setAttribute('onclick', `deleteItem(${item.id})`);
 
         let tr = tBody.insertRow();
 
@@ -111,7 +112,7 @@ function _displayItems(data) {
         td1.appendChild(isDoneTaskCheckbox);
 
         let td2 = tr.insertCell(1);
-        let textNode = document.createTextNode(item.Name);
+        let textNode = document.createTextNode(item.name);
         td2.appendChild(textNode);
 
         let td3 = tr.insertCell(2);
