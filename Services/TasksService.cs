@@ -6,16 +6,9 @@ public class TasksService:ITaskServices
 {
     private List<Todo> todo;
     private string fileName = "Task.json";
-    public TasksService(/*IWebHostEnvinronment webHost*/)
+    public TasksService()
     {
-        // todo = new List<Todo>
-        // {
-        //     new Todo { Id = 1, Name = "homeWork", IsDone = false},
-        //     new Todo { Id = 2, Name = "Organize the house", IsDone = false},
-        //     new Todo { Id = 3, Name = "Special", IsDone = true}
-        // };
-        this.fileName = Path.Combine(/*webHost.ContentRootPath,*/ "data", "tasks.json");
-        // saveToFile();
+        this.fileName = Path.Combine( "data", "tasks.json");
         
         using (var jsonFile = File.OpenText(fileName))
         {
