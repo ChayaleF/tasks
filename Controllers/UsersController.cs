@@ -1,10 +1,12 @@
 //using System.Collections.Generic;
 
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tasks.Interfaces;
 using Tasks.Models;
-//  using Users.Services;
- //using Users.Interfaces;
+using Tasks.Services;
+//using Users.Interfaces;
 
 namespace Tasks.Controllers;
 
@@ -16,7 +18,7 @@ public class UsersController : ControllerBase
 
     public UsersController(IUserServices UserServices)
     {
-        this.UsersService=UserServices;
+        this.UsersService = UserServices;
     }
 
     [HttpGet]
@@ -35,16 +37,39 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = "Admin")]
     public ActionResult Post(User newUser)
     {
         var newId = UsersService.Add(newUser);
 
-        return CreatedAtAction("Post", 
-            new {id = newId}, UsersService.GetById(newId));
+        return CreatedAtAction("Post",
+            new { id = newId }, UsersService.GetById(newId));
+    }
+
+    public ActionResult<String> Login([FromBody] User User)
+    {
+        var dt = DateTime.Now;
+
+        if (User.Name != "Wray"
+        || User.Password != "123456")
+        {
+            // $"W{dt.Year}#{dt.Day}!"
+            return Unauthorized();
+        }
+
+        var claims = new List<Claim>
+            {
+                new Claim("type", "Admin"),
+            };
+
+        var token = TasksTokenService.GetToken(claims);
+
+        return new OkObjectResult(TasksTokenService.WriteToken(token));
     }
 
     [HttpPut("{id}")]
-    public ActionResult Put(int id,User newUser)
+    [Authorize(Policy = "User")]
+    public ActionResult Put(int id, User newUser)
     {
         var result = UsersService.Update(id, newUser);
         if (!result)
@@ -57,6 +82,6 @@ public class UsersController : ControllerBase
     [HttpDelete("{id}")]
     public void Delete(int id)
     {
-        var result=UsersService.Delete(id);
+        var result = UsersService.Delete(id);
     }
 }

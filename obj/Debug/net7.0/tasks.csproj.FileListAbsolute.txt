@@ -33,3 +33,12 @@ C:\Users\user\Documents\studies\year2\core\tasks\obj\Debug\net7.0\tasks.genrunti
 C:\Users\user\Documents\studies\year2\core\tasks\obj\Debug\net7.0\ref\tasks.dll
 C:\Users\user\Documents\studies\year2\core\tasks\bin\Debug\net7.0\tasks.staticwebassets.runtime.json
 C:\Users\user\Documents\studies\year2\core\tasks\bin\Debug\net7.0\data\tasks.json
+C:\Users\user\Documents\studies\year2\core\tasks\bin\Debug\net7.0\data\users.json
+C:\Users\user\Documents\studies\year2\core\tasks\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\user\Documents\studies\year2\core\tasks\bin\Debug\net7.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\user\Documents\studies\year2\core\tasks\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\user\Documents\studies\year2\core\tasks\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\user\Documents\studies\year2\core\tasks\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\user\Documents\studies\year2\core\tasks\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\user\Documents\studies\year2\core\tasks\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\user\Documents\studies\year2\core\tasks\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
