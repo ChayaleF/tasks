@@ -5,11 +5,11 @@ namespace Tasks.Interfaces;
 
 public interface ITaskServices
 {
-    List<Todo> GetAll();
+    List<Todo> GetAll(int userId);
 
     Todo GetById(int id);
     
-    int Add(Todo newTodo);
+    int Add(Todo newTodo,int userId);
  
     bool Update(int id, Todo newTodo);
     

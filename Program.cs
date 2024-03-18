@@ -29,8 +29,8 @@ builder.Services
 
 builder.Services.AddAuthorization(cfg =>
    {
-       cfg.AddPolicy("Admin", policy => policy.RequireClaim("type", "Admin","User"));
-       cfg.AddPolicy("User", policy => policy.RequireClaim("type", "User"));
+       cfg.AddPolicy("Admin", policy => policy.RequireClaim("type","Admin"));
+       cfg.AddPolicy("User", policy => policy.RequireClaim("type", "User","Admin"));
    });
 
 builder.Services.AddControllers();
