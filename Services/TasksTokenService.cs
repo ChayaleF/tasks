@@ -23,6 +23,35 @@ namespace Tasks.Services
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
             );
 
+        public static bool IsTokenExpired(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateLifetime = true, // הגדרת כך תפעיל את בדיקת התוקן על פי זמן התפוגה
+                ValidateAudience = false, // ניתן לכבות את בדיקת קהל היעד אם אינך משתמש בה
+                ValidateIssuer = false, // ניתן לכבות את בדיקת הגורם המנפיק אם אינך משתמש בה
+                RequireExpirationTime = true, // מחייב את התפוגה של הטוקן
+                ClockSkew = TimeSpan.Zero // משתמש באפס על מנת לוודא שאנו משווים את הזמנים בדיוק
+            };
+
+            try
+            {
+                // פענוח הטוקן ובדיקת האימות שלו
+                tokenHandler.ValidateToken(token, validationParameters, out var validatedToken);
+                return validatedToken.ValidTo <= DateTime.UtcNow;
+            }
+            catch (SecurityTokenExpiredException)
+            {
+                // טוקן פג תוקף
+                return true;
+            }
+            catch (Exception)
+            {
+                // אירעה שגיאה אחרת
+                return true; // או false, תלוי מה תרצה לעשות
+            }
+        }
         public static TokenValidationParameters GetTokenValidationParameters() =>
             new TokenValidationParameters
             {

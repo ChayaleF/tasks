@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Tasks CRUD</title>
+    <title>qq CRUD</title>
     <link rel="stylesheet" href="css/site.css" />
 </head>
 
@@ -40,7 +40,16 @@
 
     <script src="js/site.js" asp-append-version="true"></script>
     <script type="text/javascript">
-        getItems();
+        if (localStorage.getItem("token") == null)
+            location.href = "./login.html"
+        try{
+            getItems();
+
+        }
+        catch
+        {
+            location.href = "./login.html"
+        }
     </script>
 </body>
 

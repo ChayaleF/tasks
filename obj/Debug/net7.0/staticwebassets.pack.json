@@ -9,8 +9,16 @@
       "PackagePath": "staticwebassets\\index.html"
     },
     {
+      "Id": "C:\\Users\\user\\Documents\\studies\\year2\\core\\tasks\\wwwroot\\js\\login.js",
+      "PackagePath": "staticwebassets\\js\\login.js"
+    },
+    {
       "Id": "C:\\Users\\user\\Documents\\studies\\year2\\core\\tasks\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\user\\Documents\\studies\\year2\\core\\tasks\\wwwroot\\login.html",
+      "PackagePath": "staticwebassets\\login.html"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.tasks.props",

@@ -3,10 +3,18 @@ const uri = "https://localhost:7188/Tasks";
 let tasks = [];
 
 function getItems() {
-    fetch(uri)
+    fetch(uri ,{
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization':`Bearer ${localStorage.getItem("token")}`
+        },
+    })
         .then(response => response.json())
         .then(data => _displayItems(data))
         .catch(error => console.error('Unable to get items.', error));
+        
 }
 
 function addItem() {
@@ -21,7 +29,8 @@ function addItem() {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${localStorage.getItem("token")}`
             },
             body: JSON.stringify(item)
         })
@@ -34,9 +43,14 @@ function addItem() {
 }
 
 function deleteItem(id) {
-    fetch(`${uri}/${id}`, {
-            method: 'DELETE'
-        })
+    fetch(`${uri}/${id}`,{
+        method: 'DELETE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization':`Bearer ${localStorage.getItem("token")}`
+        },
+    })
         .then(() => getItems())
         .catch(error => console.error('Unable to delete item.', error));
 }
@@ -62,7 +76,8 @@ function updateItem() {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${localStorage.getItem("token")}`
             },
             body: JSON.stringify(item)
         })

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "hHVtSHqf2TKYk97lghN7W6/q1kQdSXdLE47GS3DzNuw=",
+  "Hash": "02/H9SqHB+1gi2p1m7AePojOONoWLr6tHB7naFyq38I=",
   "Source": "tasks",
   "BasePath": "_content/tasks",
   "Mode": "Default",
@@ -51,6 +51,23 @@
       "OriginalItemSpec": "wwwroot\\index.html"
     },
     {
+      "Identity": "C:\\Users\\user\\Documents\\studies\\year2\\core\\tasks\\wwwroot\\js\\login.js",
+      "SourceId": "tasks",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Documents\\studies\\year2\\core\\tasks\\wwwroot\\",
+      "BasePath": "_content/tasks",
+      "RelativePath": "js/login.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\login.js"
+    },
+    {
       "Identity": "C:\\Users\\user\\Documents\\studies\\year2\\core\\tasks\\wwwroot\\js\\site.js",
       "SourceId": "tasks",
       "SourceType": "Discovered",
@@ -66,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\site.js"
+    },
+    {
+      "Identity": "C:\\Users\\user\\Documents\\studies\\year2\\core\\tasks\\wwwroot\\login.html",
+      "SourceId": "tasks",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Documents\\studies\\year2\\core\\tasks\\wwwroot\\",
+      "BasePath": "_content/tasks",
+      "RelativePath": "login.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\login.html"
     }
   ]
 }

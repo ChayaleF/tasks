@@ -48,7 +48,7 @@ public class TasksService : ITaskServices
         return newTodo.Id;
     }
 
-    public bool Update(int id, Todo newTodo)
+    public bool Update(int id, Todo newTodo,int userId)
     {
         if (id != newTodo.Id)
             return false;
@@ -56,6 +56,8 @@ public class TasksService : ITaskServices
         var existingTask = GetById(id);
         if (existingTask == null)
             return false;
+            
+        newTodo.UserId=userId;
 
         var index = todo.IndexOf(existingTask);
         if (index == -1)

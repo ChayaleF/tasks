@@ -11,7 +11,7 @@ public interface ITaskServices
     
     int Add(Todo newTodo,int userId);
  
-    bool Update(int id, Todo newTodo);
+    bool Update(int id, Todo newTodo,int userId);
     
     bool Delete(int id);
 }

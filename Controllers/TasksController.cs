@@ -54,7 +54,7 @@ public class TasksController : ControllerBase
     public ActionResult Put(int id, Todo newTask)
     {
 
-        var result = TasksService.Update(id, newTask);
+        var result = TasksService.Update(id, newTask,int.Parse(User.FindFirst("id")?.Value!));
         if (!result)
         {
             return BadRequest();
