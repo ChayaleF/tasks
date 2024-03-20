@@ -1,3 +1,5 @@
+using System.Net;
+using Microsoft.OpenApi.Expressions;
 using Tasks.Services;
 
 public class TokenExpirationMiddleware
@@ -13,13 +15,13 @@ public class TokenExpirationMiddleware
 
     public async Task Invoke(HttpContext context)
     {
-        var token = context.Request.Cookies["your_token_cookie_name"];
+        var token=context.Request.Headers["Authorization"].FirstOrDefault();
 
         if (!string.IsNullOrEmpty(token))
         {
             if (TasksTokenService.IsTokenExpired(token))
             {
-                context.Response.Redirect("/login");
+                context.Response.Redirect("/index");
                 return;
             }
             // הטוקן תקף, אז אפשר להמשיך לטעינת הדף הראשי
@@ -28,3 +30,13 @@ public class TokenExpirationMiddleware
         await _next(context);
     }
 }
+
+public static partial class MiddleExtensions
+{
+    public static IApplicationBuilder UseTokenExpMiddleware(this IApplicationBuilder builder )
+    {
+        return builder.UseMiddleware<TokenExpirationMiddleware>();
+    }
+}
+
+

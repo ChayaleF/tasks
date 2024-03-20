@@ -1,6 +1,6 @@
 const uri = "https://localhost:7188/Tasks";
 //const uri = '..Tasks' אפשר גם:
-let tasks = [];
+let users = [];
 
 function checkToken() {
     fetch(uri ,{
@@ -48,10 +48,12 @@ function getItems() {
 
 function addItem() {
     const addNameTextbox = document.getElementById('add-name');
+    const addPasswordTextbox = document.getElementById('add-password');
 
     const item = {
-        isDone: false,
-        name: addNameTextbox.value.trim()
+        
+        name: addNameTextbox.value.trim(),
+        password:addPasswordTextbox.value.trim()
     };
 
     fetch(uri, {
@@ -67,6 +69,8 @@ function addItem() {
         .then(() => {
             getItems();
             addNameTextbox.value = '';
+            addPasswordTextbox.value = '';
+
         })
         .catch(error => console.error('Unable to add item.', error));
 }
@@ -84,52 +88,51 @@ function deleteItem(id) {
         .catch(error => console.error('Unable to delete item.', error));
 }
 
-function displayEditForm(id) {
-    const item = tasks.find(item => item.id === id);
+// function displayEditForm(id) {
+//     const item = tasks.find(item => item.id === id);
 
-    document.getElementById('edit-name').value = item.name;
-    document.getElementById('edit-id').value = item.id;
-    document.getElementById('edit-isDone').checked = item.isDone;
-    document.getElementById('editForm').style.display = 'block';
-}
+//     document.getElementById('edit-name').value = item.name;
+//     document.getElementById('edit-id').value = item.id;
+//     document.getElementById('editForm').style.display = 'block';
+// }
 
-function updateItem() {
-    const itemId = document.getElementById('edit-id').value;
-    const item = {
-        id: parseInt(itemId, 10),
-        isDone: document.getElementById('edit-isDone').checked,
-        name: document.getElementById('edit-name').value.trim()
-    };
+// function updateItem() {
+//     const itemId = document.getElementById('edit-id').value;
+//     const item = {
+//         id: parseInt(itemId, 10),
+//         isDone: document.getElementById('edit-isDone').checked,
+//         name: document.getElementById('edit-name').value.trim()
+//     };
 
-    fetch(`${uri}/${itemId}`, {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization':`Bearer ${localStorage.getItem("token")}`
-            },
-            body: JSON.stringify(item)
-        })
-        .then(() => getItems())
-        .catch(error => console.error('Unable to update item.', error));
+//     fetch(`${uri}/${itemId}`, {
+//             method: 'PUT',
+//             headers: {
+//                 'Accept': 'application/json',
+//                 'Content-Type': 'application/json',
+//                 'Authorization':`Bearer ${localStorage.getItem("token")}`
+//             },
+//             body: JSON.stringify(item)
+//         })
+//         .then(() => getItems())
+//         .catch(error => console.error('Unable to update item.', error));
 
-    closeInput();
+//     closeInput();
 
-    return false;
-}
+//     return false;
+// }
 
-function closeInput() {
-    document.getElementById('editForm').style.display = 'none';
-}
+// function closeInput() {
+//     document.getElementById('editForm').style.display = 'none';
+// }
 
 function _displayCount(itemCount) {
-    const name = (itemCount === 1) ? 'tasks' : 'tasks kinds';
+    const name = (itemCount === 1) ? 'users' : 'users kinds';
 
     document.getElementById('counter').innerText = `${itemCount} ${name}`;
 }
 
 function _displayItems(data) {
-    const tBody = document.getElementById('tasks');
+    const tBody = document.getElementById('users');
     tBody.innerHTML = '';
 
     _displayCount(data.length);
@@ -137,60 +140,38 @@ function _displayItems(data) {
     const button = document.createElement('button');
 
     data.forEach(item => {
-        let isDoneTaskCheckbox = document.createElement('input');
-        isDoneTaskCheckbox.type = 'checkbox';
-        isDoneTaskCheckbox.disabled = true;
-        isDoneTaskCheckbox.checked = item.isDone;
+        
 
-        let editButton = button.cloneNode(false);
-        editButton.innerText = 'Edit';
-        editButton.setAttribute('onclick', `displayEditForm(${item.id})`);
-
+        
         let deleteButton = button.cloneNode(false);
         deleteButton.innerText = 'Delete';
         deleteButton.setAttribute('onclick', `deleteItem(${item.id})`);
 
         let tr = tBody.insertRow();
-
-        let td1 = tr.insertCell(0);
-        td1.appendChild(isDoneTaskCheckbox);
+        let td1 = tr.insertCell(1);
+        let textNodeName = document.createTextNode(item.name);
+        td1.appendChild(textNodeName);
+      
 
         let td2 = tr.insertCell(1);
-        let textNode = document.createTextNode(item.name);
-        td2.appendChild(textNode);
-
-        let td3 = tr.insertCell(2);
-        td3.appendChild(editButton);
+        let textNodePassword = document.createTextNode(item.password);
+        td2.appendChild(textNodePassword);
 
         let td4 = tr.insertCell(3);
         td4.appendChild(deleteButton);
     });
 
-    tasks = data;
+    users = data;
 }
 
 
-if (localStorage.getItem("token") == null){
-    console.log("login");
-    sessionStorage.setItem("not","not exist token")
+// if (localStorage.getItem("token") == null){
+//     console.log("login");
+//     sessionStorage.setItem("not","not exist token")
 
-    location.href = "./login.html"
+//     location.href = "./login.html"
 
-}
-function createLink(){
-    console.log(sessionStorage.getItem("link"));
-    if(sessionStorage.getItem("link")==true)
-    {
-        let link=document.createElement("a");
-        link.href="./userList.html";
-        link.innerHTML="users";
-        console.log(sessionStorage.getItem("link"));
-        link.style.backgroundColor="red"
-        let body=document.querySelector("body");
-        body.appendChild(link);
-    }
-}
-sessionStorage.setItem("yes","exist token")
-console.log(localStorage.getItem("token"));
-createLink()
-getItems();
+// }
+// sessionStorage.setItem("yes","exist token")
+// console.log(localStorage.getItem("token"));
+ getItems();

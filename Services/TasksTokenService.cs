@@ -19,7 +19,7 @@ namespace Tasks.Services
                 issuer,
                 issuer,
                 claims,
-                expires: DateTime.Now.AddDays(30.0),
+                expires: DateTime.Now.AddMinutes(1.0),
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
             );
 
@@ -52,16 +52,38 @@ namespace Tasks.Services
                 return true; // או false, תלוי מה תרצה לעשות
             }
         }
-        public static TokenValidationParameters GetTokenValidationParameters() =>
-            new TokenValidationParameters
+        public static TokenValidationParameters GetTokenValidationParameters() 
+    {
+
+    
+             return new TokenValidationParameters
             {
                 ValidIssuer = issuer,
                 ValidAudience = issuer,
                 IssuerSigningKey = key,
-                ClockSkew = TimeSpan.Zero // remove delay of token when expire
-            };
+                //ClockSkew = TimeSpan.Zero, // remove delay of token when expire
+                LifetimeValidator=LifetimeValidator //TimeSpan.FromDays(30)
 
+            };
+    }
         public static string WriteToken(SecurityToken token) =>
             new JwtSecurityTokenHandler().WriteToken(token);
+    
+
+    public static bool LifetimeValidator(DateTime? notBefore, DateTime? expires, SecurityToken token, TokenValidationParameters validationParameters)
+{
+    // קביעת התוקף של הטוקן ל-30 ימים
+    var expirationDate = notBefore?.AddMinutes(1);
+
+    // בדיקה האם התוקף המוגדר הוא קטן מהתאריך הנוכחי
+    if (expirationDate < DateTime.UtcNow)
+    {
+        // התוקף פג, מסר תוקף לא חוקי
+        return false;
+    }
+
+    // התוקף עדיין תקף
+    return true;
+}
     }
 }
