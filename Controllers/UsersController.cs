@@ -53,7 +53,7 @@ public class UsersController : ControllerBase
 
     [HttpPost]
     [Route("/login")]
-    public ActionResult<String> Login([FromBody] User User)
+    public ActionResult<objectToReturn> Login([FromBody] User User)
     {
 
         int UserExistID = UsersService.ExistUser(User.Name, User.Password);
@@ -68,13 +68,25 @@ public class UsersController : ControllerBase
             claims.Add(new Claim("type", "Admin"));
         else
             claims.Add(new Claim("type", "User"));
-        
-        claims.Add(new Claim("id", UserExistID.ToString()));
-        
-        var token = TasksTokenService.GetToken(claims);
-        return new OkObjectResult(TasksTokenService.WriteToken(token));
-    }
 
+        claims.Add(new Claim("id", UserExistID.ToString()));
+
+        var token = TasksTokenService.GetToken(claims);
+        return new OkObjectResult(new{Id=UserExistID,token=TasksTokenService.WriteToken(token)}) ;
+    }
+    [HttpPut("{id}")]
+    [Authorize(Policy = "User")]
+
+    public ActionResult Put(int id, User newUser)
+    {
+
+        var result = UsersService.Update(id, newUser);
+        if (!result)
+        {
+            return BadRequest();
+        }
+        return NoContent();
+    }
 
     [HttpDelete("{id}")]
     [Authorize(Policy = "Admin")]
@@ -86,3 +98,22 @@ public class UsersController : ControllerBase
         return NoContent();
     }
 }
+// public ActionResult Put(string name,string password, User newUser)
+//     {
+//         newUser.Id=UsersService.ExistUser(name,password);
+
+//         var result = UsersService.Update(name,password, newUser);
+//         if (!result)
+//         {
+//             return BadRequest();
+//         }
+//         return NoContent();
+//     }
+
+public class objectToReturn
+{
+    public int Id { get; set; }
+
+    public string token { get; set; }
+}
+

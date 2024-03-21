@@ -26,17 +26,17 @@ dom.submitBtn.onclick = (event) => {
             response.json()
         )
         .then((res) => {
-
             if (res.status == 401)
                 alert("The username or password you entered is incorrect")
             else {
                 if (dom.name.value === "David" && dom.password.value === "123")
-                    sessionStorage.setItem("link", true);
+                    localStorage.setItem("link", true);
                 else
-                    sessionStorage.setItem("link", false);
+                    localStorage.setItem("link", false);
 
-                localStorage.setItem("token", res)
-                location.href = "../index.html"
+                localStorage.setItem("token", res.token);
+                localStorage.setItem('userId',res.id);
+                location.href = "../index.html";
             }
         })
         .catch(error => console.error('Unable to add item.', error));

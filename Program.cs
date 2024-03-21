@@ -63,7 +63,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
-app.UselogMiddleware("file.txt");
+//app.UselogMiddleware("file.txt");
 //app.UseTokenExpMiddleware();
 
 if (app.Environment.IsDevelopment())

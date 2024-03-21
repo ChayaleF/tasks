@@ -47,16 +47,20 @@ public class UsersService : IUserServices
 
     public bool Update(int id, User newUser)
     {
+        Console.WriteLine("1");
         if (id != newUser.Id)
             return false;
+        Console.WriteLine("2");
 
         var existingUser = GetById(id);
         if (existingUser == null)
             return false;
+        Console.WriteLine("3");
 
         var index = User.IndexOf(existingUser);
         if (index == -1)
             return false;
+        Console.WriteLine("4");
 
         User[index] = newUser;
         saveToFile();
@@ -96,3 +100,23 @@ public static class UserUtils
         services.AddSingleton<IUserServices, UsersService>();
     }
 }
+//  public bool Update(string name,string password, User newUser)
+//     {
+
+
+//         Console.WriteLine("1");
+//         int existingUser=ExistUser(name,password);
+//         if (existingUser != newUser.Id)
+//             return false;
+//         Console.WriteLine("2");
+
+//         var index = User.IndexOf(GetById(existingUser));
+//         if (index == -1)
+//             return false;
+//         Console.WriteLine("4");
+
+//         User[index] = newUser;
+//         saveToFile();
+
+//         return true;
+//     }

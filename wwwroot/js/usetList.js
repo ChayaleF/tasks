@@ -1,4 +1,4 @@
-const uri = "https://localhost:7188/Tasks";
+const uri = "https://localhost:7188/Users";
 //const uri = '..Tasks' אפשר גם:
 let users = [];
 
@@ -35,15 +35,8 @@ function getItems() {
     })
         .then(response => response.json())
         .then(data => _displayItems(data))
-        // .catch(error => console.error('Unable to get items.', error));
-        .catch(error => 
-            {
-                sessionStorage.setItem("check",error)
-                console.log(error);
-                location.href = "./login.html"
-    
-            });
-            
+        .catch(error => console.error('Unable to get items.', error));
+      
 }
 
 function addItem() {
@@ -87,44 +80,6 @@ function deleteItem(id) {
         .then(() => getItems())
         .catch(error => console.error('Unable to delete item.', error));
 }
-
-// function displayEditForm(id) {
-//     const item = tasks.find(item => item.id === id);
-
-//     document.getElementById('edit-name').value = item.name;
-//     document.getElementById('edit-id').value = item.id;
-//     document.getElementById('editForm').style.display = 'block';
-// }
-
-// function updateItem() {
-//     const itemId = document.getElementById('edit-id').value;
-//     const item = {
-//         id: parseInt(itemId, 10),
-//         isDone: document.getElementById('edit-isDone').checked,
-//         name: document.getElementById('edit-name').value.trim()
-//     };
-
-//     fetch(`${uri}/${itemId}`, {
-//             method: 'PUT',
-//             headers: {
-//                 'Accept': 'application/json',
-//                 'Content-Type': 'application/json',
-//                 'Authorization':`Bearer ${localStorage.getItem("token")}`
-//             },
-//             body: JSON.stringify(item)
-//         })
-//         .then(() => getItems())
-//         .catch(error => console.error('Unable to update item.', error));
-
-//     closeInput();
-
-//     return false;
-// }
-
-// function closeInput() {
-//     document.getElementById('editForm').style.display = 'none';
-// }
-
 function _displayCount(itemCount) {
     const name = (itemCount === 1) ? 'users' : 'users kinds';
 
@@ -148,7 +103,7 @@ function _displayItems(data) {
         deleteButton.setAttribute('onclick', `deleteItem(${item.id})`);
 
         let tr = tBody.insertRow();
-        let td1 = tr.insertCell(1);
+        let td1 = tr.insertCell(0);
         let textNodeName = document.createTextNode(item.name);
         td1.appendChild(textNodeName);
       
@@ -157,7 +112,7 @@ function _displayItems(data) {
         let textNodePassword = document.createTextNode(item.password);
         td2.appendChild(textNodePassword);
 
-        let td4 = tr.insertCell(3);
+        let td4 = tr.insertCell(2);
         td4.appendChild(deleteButton);
     });
 
@@ -165,13 +120,5 @@ function _displayItems(data) {
 }
 
 
-// if (localStorage.getItem("token") == null){
-//     console.log("login");
-//     sessionStorage.setItem("not","not exist token")
 
-//     location.href = "./login.html"
-
-// }
-// sessionStorage.setItem("yes","exist token")
-// console.log(localStorage.getItem("token"));
  getItems();
