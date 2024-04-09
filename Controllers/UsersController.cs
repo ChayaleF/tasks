@@ -64,7 +64,7 @@ public class UsersController : ControllerBase
         }
 
         var claims = new List<Claim> { };
-        if (User.Password == "123")
+        if (User.Password == "123"&&User.Name=="Admin")
             claims.Add(new Claim("type", "Admin"));
         else
             claims.Add(new Claim("type", "User"));

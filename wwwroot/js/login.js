@@ -29,7 +29,7 @@ dom.submitBtn.onclick = (event) => {
             if (res.status == 401)
                 alert("The username or password you entered is incorrect")
             else {
-                if (dom.name.value === "David" && dom.password.value === "123")
+                if (dom.name.value === "Admin" && dom.password.value === "123")
                     localStorage.setItem("link", true);
                 else
                     localStorage.setItem("link", false);
@@ -40,5 +40,29 @@ dom.submitBtn.onclick = (event) => {
             }
         })
         .catch(error => console.error('Unable to add item.', error));
+}
+
+function handleCredentialResponse(response) {
+    if (response.credential) {
+        var idToken = response.credential;
+        var decodedToken = parseJwt(idToken);
+        var userName = decodedToken.name;
+        var userPassword = decodedToken.sub;
+        login(userName, userPassword);
+    } else {
+        alert('Google Sign-In was cancelled.');
+    }
+}
+
+
+//Parses JWT token from Google Sign-In
+function parseJwt(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
 }
 // localStorage.setItem;
